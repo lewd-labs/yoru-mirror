@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { client } from "./index";
+import { client } from "./client";
 require("dotenv").config();
 
 client.init().catch((err: any) => {
