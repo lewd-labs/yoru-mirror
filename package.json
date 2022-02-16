@@ -1,33 +1,8 @@
 {
-	"name": "succubus-district",
-	"version": "1.0.0",
-	"description": "a bot",
-	"main": "dist/bot/run.js",
-	"type": "commonjs",
-	"scripts": {
-		"start": "node ./build/bot/run.js node --trace-warnings",
-		"update": "yarn upgrade-interactive --latest",
-		"watch": "tsc -w"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/lewd-labs/succubus-district.git"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/lewd-labs/succubus-district/issues"
-	},
-	"homepage": "https://github.com/lewd-labs/succubus-district#readme",
-	"dependencies": {
-		"discord.js": "^13.3.1",
-		"reflect-metadata": "^0.1.13"
-	},
-	"devDependencies": {
-		"@types/node": "^16.11.6",
-		"prettier": "^2.4.1",
-		"ts-node": "^10.4.0",
-		"typescript": "^4.4.4"
-	}
+  "name": "yoru-mirror",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/lewd-labs/yoru-mirror.git",
+  "author": "ThatGuyJamal <43446907+ThatGuyJamal@users.noreply.github.com>",
+  "license": "MIT"
 }
