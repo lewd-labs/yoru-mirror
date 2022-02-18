@@ -1,555 +1,490 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const discord_hybrid_sharding_1 = __importDefault(require("discord-hybrid-sharding"));
-const config_1 = require("../../../config");
-const manager = new discord_hybrid_sharding_1.default.Manager(`../../structures/client.bot`, {
-  totalShards: "auto",
-  shardsPerClusters: 2,
-  mode: "process",
-  token: config_1.ENV.bot.token,
-});
-manager.on("clusterCreate", (cluster) => console.log(`Launched Cluster ${cluster.id}`));
-manager.spawn({ timeout: -1 });
-//# sourceMappingURL=shard.js.map
+#include <bits/stdc++.h>
+#include <stdlib.h>
+#include <time.h>
+using namespace std;
 
-import { Message } from "discord.js";
-export declare class IEventLogger {
-  private _logger;
-  private _logChannelID;
-  private _client;
-  shardLog(ctx: Message, level: logLevel, message: string): Promise<void>;
-  commandLog(ctx: Message, level: logLevel, message: string): Promise<void>;
-  blackListLogs(ctx: Message, level: blackListLevel, message: string): Promise<void>;
-  joinLogs(ctx: Message, level: guildEventLevel, message: string): Promise<void>;
+// A utility function to swap to integers
+void swap(int *a, int *b)
+{
+  int temp = *a;
+  *a = *b;
+  *b = temp;
 }
-export declare enum logLevel {
-  info = "info",
-  warn = "warn",
-  error = "error",
-  debug = "debug"
-}
-export declare enum guildEventLevel {
-  join = "GUILD_CREATE",
-  leave = "GUILD_DELETE"
-}
-export declare enum blackListLevel {
-  user = "USER",
-  guild = "GUILD"
-}
-//# sourceMapping
 
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.blackListLevel = exports.guildEventLevel = exports.logLevel = exports.IEventLogger = void 0;
-const framework_1 = require("@sapphire/framework");
-const config_1 = require("../../../config");
-const embed_1 = require("../../util/extensions/embed");
-class IEventLogger {
-  _logger = framework_1.container.logger;
-  _logChannelID = {
-    join_leave: config_1.ENV.logger.join_leave_channel,
-    shards: config_1.ENV.logger.shard_channel,
-    api: config_1.ENV.logger.api_channel,
-    blacklisted: config_1.ENV.logger.black_list_channel,
-    commands: config_1.ENV.logger.command_channel,
-  };
-  _client = framework_1.container.client;
-  async shardLog(ctx, level, message) {
-    let channel = this._client.channels.cache.get(this._logChannelID.shards);
-    if (channel && channel.type === "GUILD_TEXT" && ctx.guild) {
-      this._logger.info(`[SHARD] ${level} | ${message} was sent to ${channel.name}`);
-      switch (level) {
-        case logLevel.info:
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `Shard ${ctx.guild.shard.id}`,
-                description: message,
-                color: "LIGHT_GREY",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          break;
-        case logLevel.warn:
-          var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-            var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-            if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-            else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-            return c > 3 && r && Object.defineProperty(target, key, r), r;
-          };
-          Object.defineProperty(exports, "__esModule", { value: true });
-          exports.UserEvent = void 0;
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `Shard ${ctx.guild.shard.id}`,
-                description: message,
-                color: "YELLOW",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          break;
-        case logLevel.error:
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `Shard ${ctx.guild.shard.id}`,
-                description: message,
-                color: "RED",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          break;
-        case logLevel.debug:
-          var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-            var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-            if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-            else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-            return c > 3 && r && Object.defineProperty(target, key, r), r;
-          };
-          Object.defineProperty(exports, "__esModule", { value: true });
-          exports.UserEvent = void 0;
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `Shard ${ctx.guild.shard.id}`,
-                description: message,
-                color: "DARK_BLUE",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          break;
-        default:
-          break;
-      }
-    }
+// A utility function to print an array
+void printArray(int arr[], int n)
+{
+  for (int i = 0; i < n; i++)
+    cout << arr[i] << " ";
+  cout << "\n";
+}
+
+// A function to generate a random
+// permutation of arr[]
+void randomize(int arr[], int n)
+{
+  // Use a different seed value so that
+  // we don't get same result each time
+  // we run this program
+  srand(time(NULL));
+
+  // Start from the last element and swap
+  // one by one. We don't need to run for
+  // the first element that's why i > 0
+  for (int i = n - 1; i > 0; i--)
+  {
+    // Pick a random index from 0 to i
+    int j = rand() % (i + 1);
+
+    // Swap arr[i] with the element
+    // at random index
+    swap(&arr[i], &arr[j]);
   }
-  async commandLog(ctx, level, message) {
-    let channel = this._client.channels.cache.get(this._logChannelID.commands);
-    if (channel && channel.type === "GUILD_TEXT" && ctx.guild) {
-      this._logger.info(`[COMMAND] ${level} | ${message} was sent to ${channel.name}`);
-      switch (level) {
-        case logLevel.info:
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `Command Info Event`,
-                description: message,
-                color: "LIGHT_GREY",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          { "version": 3, "file": "config.js", "sourceRoot": "", "sources": ["../../../typings/config.ts"], "names": [], "mappings": "" }
-          function T(k) {
-            return k;
-          }
-          exports.T = T;
-          function FT(k) {
-            return k;
-          }
-          break;
-        case logLevel.warn:
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `Command Warn Event`,
-                description: message,
-                color: "YELLOW",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          break;
-        case logLevel.error:
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `Command Error Event`,
-                description: message,
-                color: "RED",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          break;
-        case logLevel.debug:
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `Command Debug Event`,
-                description: message,
-                color: "DARK_BLUE",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          break;
-        default:
-          break;
-      }
-    }
-  }
-  async blackListLogs(ctx, level, message) {
-    let channel = this._client.channels.cache.get(this._logChannelID.blacklisted);
-    if (channel && channel.type === "GUILD_TEXT" && ctx.guild) {
-      this._logger.info(`[BLACKLIST] ${level} | ${message} was sent to ${channel.name}`);
-      switch (level) {
-        case blackListLevel.guild:
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `New Blacklisted Guild`,
-                description: message,
-                color: "DARK_RED",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          break;
-        case blackListLevel.user:
-          await channel.send({
-            embeds: [
-              new embed_1.YoruEmbed({
-                title: `New Blacklisted User`,
-                description: message,
-                color: "RED",
-                timestamp: new Date(),
-              }),
-            ],
-          });
-          function T(k) {
-            return k;
-          }
-          function FT(k) {
-            return k;
-          }
-          function T(k) {
-            return k;
-          }
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.IntervalsController = void 0;
-const discord_js_1 = require("discord.js");
-const config_1 = require("../../../config");
-class IntervalsController {
-  ready = false;
-  intervals;
-  client;
-  constructor(instanceOfClient) {
-    this.client = instanceOfClient;
-    this.intervals = new discord_js_1.Collection();
-  }
-  async init() {
-    this.ready = true;
-    if (!video) {
-      this.log.info(`[${post._id} | No new video found for this post, skipping post...`);
-      return;
-    }
-  }
-  async start(name, callback, interval) {
-    try {
-      if (this.intervals.has(name)) {
-        if (this.exists(name)) {
-          await this.stop(name);
+}
+
+// Driver Code
+int main()
+{
+  int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
+  int n = sizeof(arr) / sizeof(arr[0]);
+  randomize(arr, n);
+  printArray(arr, n);
+
+  return 0;
+}
+
+void duplicate(int arr[],int n){
+
+   sort(arr,arr+n);
+    
+    int c = arr[0];
+    int ct =0;
+    for(int i=1;i<n;i++){
+        if(arr[i] == c){
+            ct++;
         }
-      }
-      this.intervals.set(name, setInterval(callback, interval));
-      if (config_1.ENV.bot.dev) {
-        this.client.logger.info(`[Interval] ${name} started with interval ${interval}ms`);
-      }
-      const discord_js_1 = require("discord.js");
-      const framework_1 = require("@sapphire/framework");
-      class GuildConfigHandler {
-        _model = guild_schema_1.GuildDocumentModel;
-        _cache = new discord_js_1.Collection();
-        async insertOne(id, options, value) {}((({
-          _id: id,
-        })))
+        else{
+            if(ct>0){
+                cout<<c;
+            }
+            c = arr[i];
+            ct = 0;
+        }
     }
-    catch (e) {
-      console.error(e);
+    if(ct > 0){
+        cout<<c;
     }
-  }
-  async stop(name) {
-    if (this.intervals.has(name)) {
-      this.intervals.delete(name);
-      if (config_1.ENV.bot.dev) {
-        this.client.logger.info(`[Interval] ${name} stopped`);
-      }
-    }
-  }
-  exists(name) {
-    if (config_1.ENV.bot.dev) {
-      this.client.logger.info(`[Interval] ${name} exists? ${this.intervals.has(name)}`);
-    }
-    return this.intervals.has(name);
-  }
 }
-exports.IntervalsController = IntervalsController;
-//# sourceMappingURL=index.js.map
 
-import { YoruClient } from "../../structures/client/bot";
-export declare class RedisController {
-  private bot;
-  private client;
-  constructor(bot: typeof YoruClient);
-  find(key: string, value: string): Promise<string | number | null>;
-  findAll(key: string): Promise<string[]>;
-  set(key: string, value: string): Promise<string>;
-  delete(key: string, value: string): Promise<number>;
-  setCooldown(commandName: string, id: string, time: any): Promise<void>;
-  removeCooldown(commandName: string, id: string): Promise<void>;
-  checkCooldown(commandName: string, id: string): Promise<string | number | false>;
-  lifeCycle(key: string): Promise<number>;
+void push(char);
+char pop();
+void main()
+{
+    char exp[MAX],temp;
+    int i,flag=1;
+    printf("Enter the Expression: ");
+    gets(exp);
+    for(i=0;i<strlen(exp);i++)
+    {
+        //checks for opening bracket and push it into stack
+        if(exp[i]=='('||exp[i]=='['|| exp[i]=='{')
+        {
+            push(exp[i]);
+        }
+        //checks for closing brackets
+        if(exp[i]==')'||exp[i]==']'|| exp[i]=='}')
+        {
+            if(top==-1)
+            {
+                flag=0;
+            }
+            else
+            {
+                temp=pop();
+                if((exp[i]==')')&&(temp=='{'||temp=='['))
+                {
+                    flag=0;
+                }
+                if((exp[i]=='}')&&(temp=='('||temp=='['))
+                {
+                    flag=0;
+                }
+                if((exp[i]==']')&&(temp=='('||temp=='{'))
+                {
+                    flag=0;
+                }
+            }
+        }
+    }
+    if(top>=0)
+    {
+        flag=0;
+    }
+    if(flag==1)
+    {
+        printf("\nValid Expression!");
+    }
+    else
+    {
+        printf("\nInvalid Expression!");
+    }
+} //main function terminates
+void push(char c)
+{
+    if (top==(MAX-1))
+    {
+        printf("\nStack Overflow!");
+    }
+    else
+    {
+        top++;
+        stack[top]=c;
+    }
 }
-//# sourceMappingURL=index.d.ts.map
+char pop()
+{
+    if(top==-1)
+    {
+        printf("\nStack Underflow!");
+    }
+    else
+    {
+        return(stack[top--]);
+    }
+}
 
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RedisController = void 0;
-const tedis_1 = require("tedis");
-const config_1 = require("../../../config");
-class RedisController {
-  bot;
-  client;
-  constructor(bot) {
-    this.bot = bot;
-    if (config_1.ENV.bot.dev) {
-      this.client = new tedis_1.Tedis({
-        host: "127.0.0.1",
-        port: 6379,
-        password: "password",
-      });
+stack<int>s1,s2;
+
+void Enqueue(int n)
+{
+    while(!s1.empty())
+    {
+        s2.push(s1.top());
+        s1.pop();
     }
-    else {
-      this.client = new tedis_1.Tedis({
-        host: config_1.ENV.bot.redis.host,
-        port: config_1.ENV.bot.redis.port,
-        password: config_1.ENV.bot.redis.password,
-      });
+    s1.push(n);
+    while(!s2.empty())
+    {
+        s1.push(s2.top());
+        s2.pop();
     }
-    this.client.on("connect", () => {
-      this.bot.logger.info("Redis Client is connected!");
-    });
-    this.client.on("error", (err) => {
-      this.bot.logger.warn(`Redis Client has an error! - ${err}`);
-    });
-    this.client.on("timeout", () => {
-      this.bot.logger.error("Redis Client has a timeout!");
-    });
-    this.client.on("close", () => {
-      this.bot.logger.fatal("Redis Client has closed!");
-    });
-  }
-  async find(key, value) {
-    try {
-      return await this.client.get(`${key}:${value}`);
+}
+
+void Dequeue()
+{
+    cout<<s1.top()<<endl;
+    s1.pop();
+}
+
+int main()
+{
+    int n,i;
+    cout<<"Enter the number digits to be added in queue : "<<endl;
+    cin>>n;
+    cout<<"Enter the digits : "<<endl;
+    for(i=0;i<n;i++)
+    {
+        int num;
+        cin>>num;
+        Enqueue(num);
     }
-    catch (err) {
-      this.bot.logger.error(err);
-      return null;
+    while(1)
+    {
+    cout<<"Press 1 to dequeue "<<endl;
+    cin>>i;
+    if(i==1)
+    {
+        Dequeue();
     }
-  }
-  async findAll(key) {
-    import { type YoruClient } from "../../structures/client/bot";
-    import { YouTubeDatabase } from "./db";
-    export declare class YouTubeScheduler {
-      db: YouTubeDatabase;
-      client: typeof YoruClient;
-      private log;
-      private startAt;
-      private readonly lastVideos;
-      private parser;
-      private yt;
-      private intervals;
-      constructor(c: typeof YoruClient);
-      init(): Promise<void>;
-      private getLastVideo;
-      private checkVideos;
-      private static getYoutubeChannelIdFromURL;
-      private getYoutubeChannelInfos;
-      private searchForNewPost;
+    else{
+        return 0;
     }
-    //# sourceMappingURL=yt.d.ts.map
-    try {
-      return await this.client.keys(`${key}:*`);
     }
-    catch (err) {
-      this.bot.logger.error(err);
-      this.log.info(`[${name.length >= 10 ? name.slice(0, 10) + "..." : name}] | Resolving channel infos...`);
-      let channel = null;
-      let id = YouTubeScheduler.getYoutubeChannelIdFromURL(name);
-      return [];
+}
+
+#define size 10
+
+int top = -1;
+int stack[10];
+
+void push(int item){
+    if(top == (size -1)){
+        printf("\n Warning..!!,Stack Overflown\n");
     }
-  }
-  async set(key, value) {
-    try {
-      return await this.client.set(key, value);
+    else{
+        top++;
+        stack[top] = item;
     }
-    catch (err) {
-      this.bot.logger.error(err);
-      return "Error setting key";
+}
+
+int pop(){
+    int item;
+    if(top<0){
+        printf("\nWarning..!!,Stack Underflow\n");
+        return 0;
     }
-  }
-  async delete(key, value) {
-    try {
-      return await this.client.del(`${key}:${value}`);
+    else{
+        item = stack[top];
+        top--;
+        return item;
     }
-    catch (err) {
-      this.bot.logger.error(err);
-      return 0;
+}
+
+void peek(){
+    if(top--<0){
+        printf("\nEmpty Stack\n");
     }
-  }
-  async setCooldown(commandName, id, time) {
-    const identifier = `cooldown:${id}:${commandName}`;
-    try {
-      await this.client.set(identifier, time);
+    else{
+        printf("\nTop Element is Stack is: %d\n",stack[top]);
     }
-    catch (err) {
-      this.bot.logger.error(err);
+}
+
+void display(){
+    int i = 0;
+    printf("\nStack Elements are: \n");
+    for(i=0;i<=top;i++){
+        printf("%d\t",stack[i]);
     }
-  }
-  async removeCooldown(commandName, id) {
-    const identifier = `cooldown:${id}:${commandName}`;
-    try {
-      await this.client.del(identifier);
-      createOne(id: string, options: insertOneOptions): Promise<import("mongoose").Document<any, import("@typegoose/typegoose/lib/types").BeAnObject, any> & GuildDocument & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction & {
-        _id: any;
-      }>;
+}
+
+
+int main(){
+    int n,in;
+    
+    printf("Menu Driven Program\n\n");
+    printf("1 = Push,   2 = Pop,    3 = Peek,   4 = Display,    8 = Exit Program\n\n");
+    printf("Enter Appropriate Options: ");
+    scanf("%d",&n);
+    printf("\n");
+    
+    while(1){
+    switch(n){
+        case (1):printf("\nEnter Input Elements for Stack: ");
+            scanf("%d",&in);
+            push(in);
+            break;
+        case (2):printf("\nElement Deleted: %d",pop());
+            break;
+        case (3):peek();
+            break;
+        case (4):display();
+            break;
+        case (8):exit(0);
+        default:printf("\n\nNo/Incorrect Option Selected");break;
+    }
+    printf("\nEnter Appropriate Options: ");
+    scanf("%d",&n);
+    }
+}
+
+//utility function to fill random elements in an array
+void fillRandom(vector<int>&);
+
+//class for minHeap(INTERFACE)
+class minHeap{
+//private members
+private:
+    //heap array
+    vector<int> heap;
+    //heapify function returnType-void
+    void heapify();
+    //sift up function returnType-void
+    void siftUp();
+    //sift down function returnType-void
+    void siftDown(int);
+
+//public data members
+public:
+    //constructor returnType - None
+    minHeap(vector<int>);
+    //insert function returnType-void
+    void insert(int);
+    //remove function returnType-Int
+    int remove();
+    //function to get top element in the heap returnType-Int
+    int getTop();
+    //function to print heap returnType-void
+    void printHeap();
+};
+
+//main function
+int main(){
+    //general array
+    vector<int> array;
+    //fill random elements in the array
+    fillRandom(array);
+    //create a heap object with the filled array
+    minHeap* heap = new minHeap(array);
+    
+    //observe the actions done
+    
+    // heap->insert(33);
+    // heap->remove();
+    // cout<<heap->getTop<<endl;
+    
+    //end of the program
+    return 0;
+}
+
+//constructor
+minHeap::minHeap(vector<int> array){
+    //assign the heap array member of the class with filled array
+    heap = array;
+    
+    printHeap();
+    
+    //call the heapify method
+    heapify();
+    
+    printHeap();
+}
+
+//heapify method
+//generally changes the original skewed array to an array with heap property
+void minHeap::heapify(){
+    //observe the last child (definitely exists)
+    int last_parent = heap.size()-2;
+    //get the parent of the child
+    last_parent /= 2;
+    
+    //iterate over the parents to the top parent and call siftdown on parents
+    for(int node = last_parent ; node >= 0 ; node--){
+        siftDown(node);
+    }
+}
+
+//insert function
+void minHeap::insert(int num){
+    cout<<"Inserting -- "<<num<<endl;
+    
+    //push into the heap
+    heap.push_back(num);
+    //sift up on the last element
+    siftUp();
+    
+    return;
+}
+
+//remove function
+int minHeap::remove(){
+    cout<<"Removing -- "<<endl;
+    //get the first element
+    int removed_num = heap[0];
+    //swap with the last element
+    swap(heap[0],heap[heap.size()-1]);
+    //remove the last element
+    heap.pop_back();
+    //sift down from the root
+    siftDown(0);
+
+    return removed_num;
+}
+
+//printheap function
+void minHeap::printHeap(){
+    //range based for loop to print nums in heap
+    for(auto num : heap){
+        cout<<num<<" ";
+    }
+    cout<<endl;
+}
+
+//getTop function
+int minHeap::getTop(){
+    //if heap exists, return first element
+    if(this->heap.size())
+    return this->heap[0];
+    //return the possible minimum element
+    return INT_MIN;
+}
+
+//function which fills the array with random elements
+void fillRandom(vector<int>& array){
+    //time entity seeded to NULL, to get random elements every time
+    srand(time(NULL));
+    
+    //fill the array with random elements
+    for(int i = 0 ; i < 10 ; i++){
+        array.push_back(1+rand()%100);
+    }
+}
+
+//siftUp function
+//     4     insertion        4     sift up             1
+//    /    ----------->      / \   ------------>       / \ 
+//   5                      5   1                     5   4
+// the idea is on insert, we just want to sift up the last element (heap property holds)
+
+void minHeap::siftUp(){
+    //get the position of last element
+    int last_element = heap.size()-1;
+    int parent_index;
+    
+    //while thr position is valid
+    while(last_element > 0){
+        //find the parent element
+        parent_index = last_element/2;
+        //if the heap property doesn't hold
+        //swap the elements such that heap property holds and continue iterating
+        if(heap[parent_index] > heap[last_element]){
+            swap(heap[parent_index],heap[last_element]);
+            last_element = parent_index;
+        //else break the loop and return
+        } else break;
     }
     
-    catch (err) {
-      this.bot.logger.error(err);
-    }
-  }
-  async checkCooldown(commandName, id) {
-    const identifier = `cooldown:${id}:${commandName}`;
-    try {
-      const r = await this.client.get(identifier);
-      return r !== null ? r : false;
-      export declare function fetchCurrentLanguage(x: TextChannel | GuildMessage): Promise<string>;
-    }
-    catch (err) {
-      this.bot.logger.error(err);
-      return false;
-    }
-  }
-  async lifeCycle(key) {
-    try {
-      return await this.client.ttl(key);
-    }
-    catch (err) {
-      this.bot.logger.error(err);
-      return 0;
-    }
-  }
+    return;
 }
-exports.RedisController = RedisController;
-//# sourceMappingURL=index.js.map
 
-/**
- * This does not actually work...i just wanted to fill this repo with some compiled code from the actual source...
- * if you tried to run this...lmao 
- */
+//siftDown function
+//     1    deletion(remove)         5         sift down             4
+//    / \   --------------->        /      ----------------->       /
+//   4   5                         4                               5
+//the idea is to siftdown an element to bottom such that property holds
+void minHeap::siftDown(int index){
+    //given the index, get the children of the parent index
+    int child_one = index*2+1;
+    int child_two = index*2+2;
+    int node_to_be_swapped = -1;
+    
+    //while children are valid(children exists)
+    while(child_one < this->heap.size()){
+        node_to_be_swapped = -1;
+        //we can't say if second child exists based on first child, so conducting a check
+        if(index*2+2 < this->heap.size()) child_two = index*2+2;
+        else child_two = -1;
+        
+        //determining the node to be swapped
+        //if child two exists and child two is smaller than child one, then node to be swapped is child two
+        if(child_two != -1){
+            //condition to hold the heap property
+            if(heap[child_one] > heap[child_two]) node_to_be_swapped = child_two;
+            else node_to_be_swapped = child_one;
+        //else node to be swapped becomes child one itself
+        } else node_to_be_swapped = child_one;
+        
+        //if it violates heap property, swap and update the index
+        if(heap[node_to_be_swapped] < heap[index]){
+            swap(heap[node_to_be_swapped],heap[index]);
+            index = node_to_be_swapped;
+            child_one = 2*index+1;
+        } else child_one = heap.size();
+    }
+    
+    return;
+}
 
-{ "version": 3, "file": "yt.d.ts", "sourceRoot": "", "sources": ["../../../../src/lib/controllers/youtube/yt.ts"], "names": [], "mappings": "AACA,OAAO,EAAE,KAAK,UAAU,EAAE,MAAM,6BAA6B,CAAC;AAC9D,OAAO,EAAE,eAAe,EAAE,MAAM,MAAM,CAAC;AAavC,qBAAa,gBAAgB;IACnB,EAAE,EAAE,eAAe,CAAC;IACpB,MAAM,EAAE,OAAO,UAAU,CAAC;IACjC,OAAO,CAAC,GAAG,CAAU;IACrB,OAAO,CAAC,OAAO,CAAc;IAC7B,OAAO,CAAC,QAAQ,CAAC,UAAU,CAAC;IAC5B,OAAO,CAAC,MAAM,CAAC;IAEf,OAAO,CAAC,EAAE,CAAC;IACX,OAAO,CAAC,SAAS,CAAsB;gBAEpB,CAAC,EAAE,OAAO,UAAU;IAc1B,IAAI,IAAI,OAAO,CAAC,IAAI,CAAC;YAYpB,YAAY;YAsBZ,WAAW;IAsBzB,OAAO,CAAC,MAA
-
-
-  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
-  Object.defineProperty(exports, "__esModule", { value: true });
-
-  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
-
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.UserPrecondition = void 0;
-  const framework_1 = require("@sapphire/framework");
-  const config_1 = require("../config");
-  const dev_user = [
-    config_1.ENV.developer.discord_id,
-  ];
-
-  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
- : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
-
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.UserPrecondition = void 0;
-  const framework_1 = require("@sapphire/framework");
-  const config_1 = require("../config");
-  const dev_user = [
-    config_1.ENV.developer.discord_id,
-  ];
-
-  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
-  Object.defineProperty(exports, "__esModule", { value: true });
-
-  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
-
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.UserPrecondition = void 0;
-  const framework_1 = require("@sapphire/framework");
-  const config_1 = require("../config");
-  const dev_user = [
-    config_1.ENV.developer.discord_id,
-  ];
-
-  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
-  Object.defineProperty(exports, "__esModule", { value: true });
-
-  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
-
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.UserPrecondition = void 0;
-  const framework_1 = require("@sapphire/framework");
-  const config_1 = require("../config");
-  const dev_user = [
-    config_1.ENV.developer.discord_id,
-  ];
-
-  class UserPrecondition extends framework_1.Precondition {}
+int bubble_sort(int arr[],int N){
+	int i,j;
+	int count=0;
+	for(i=0;i<N;i++)
+	{
+		for(j=0;j<N-i-1;j++){
+			if(arr[j]>arr[j+1]){
+				swap(&arr[j],&arr[j+1]);
+				count++;
+			}
+		}
+	}
+	return count;
+}
