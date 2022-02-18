@@ -75,6 +75,14 @@ class IEventLogger {
           });
           break;
         case logLevel.warn:
+          var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+            var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+            if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+            else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+            return c > 3 && r && Object.defineProperty(target, key, r), r;
+          };
+          Object.defineProperty(exports, "__esModule", { value: true });
+          exports.UserEvent = void 0;
           await channel.send({
             embeds: [
               new embed_1.YoruEmbed({
@@ -99,6 +107,14 @@ class IEventLogger {
           });
           break;
         case logLevel.debug:
+          var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+            var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+            if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+            else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+            return c > 3 && r && Object.defineProperty(target, key, r), r;
+          };
+          Object.defineProperty(exports, "__esModule", { value: true });
+          exports.UserEvent = void 0;
           await channel.send({
             embeds: [
               new embed_1.YoruEmbed({
@@ -131,6 +147,14 @@ class IEventLogger {
               }),
             ],
           });
+          { "version": 3, "file": "config.js", "sourceRoot": "", "sources": ["../../../typings/config.ts"], "names": [], "mappings": "" }
+          function T(k) {
+            return k;
+          }
+          exports.T = T;
+          function FT(k) {
+            return k;
+          }
           break;
         case logLevel.warn:
           await channel.send({
@@ -201,6 +225,18 @@ class IEventLogger {
               }),
             ],
           });
+          function T(k) {
+            return k;
+          }
+          function FT(k) {
+            return k;
+          }
+          function T(k) {
+            return k;
+          }
+          function FT(k) {
+            return k;
+          }
           break;
         default:
           break;
@@ -302,6 +338,14 @@ class StatisticsHandler {
     });
     this.client.statcord.on("post", (status) => {
       if (!status)
+        "use strict";
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.IArgument = void 0;
+      const framework_1 = require("@sapphire/framework");
+      class IArgument extends framework_1.Args {
+      }
+      exports.IArgument = IArgument;
+//# sourceMappingURL=args.parser.js.map
         this.client.logger.info("Successful post");
       else
         this.client.logger.error(status);
@@ -357,6 +401,39 @@ export declare class IntervalsController {
 }
 //# sourceMappingURL=index.d.ts.map
 
+let YouTubeDocument = class YouTubeDocument {
+  _id;
+  message;
+  youtubers;
+  subscribeTo;
+};
+__decorate([
+  (0, typegoose_1.prop)({ type: () => String, required: true }),
+  __metadata("design:type", String)
+], YouTubeDocument.prototype, "_id", void 0);
+__decorate([
+  (0, typegoose_1.prop)({ type: () => String, required: false, default: null }),
+  __metadata("design:type", String)
+], YouTubeDocument.prototype, "message", void 0);
+__decorate([
+  (0, typegoose_1.prop)({ Array: () => String, required: false, default: null }),
+  __metadata("design:type", Array)
+], YouTubeDocument.prototype, "youtubers", void 0);
+__decorate([
+  (0, typegoose_1.prop)({ type: () => String, required: false, default: null }),
+  __metadata("design:type", String)
+], YouTubeDocument.prototype, "subscribeTo", void 0);
+YouTubeDocument = __decorate([
+
+  typegoose_1.model({   // eslint-disable-line @typescript-eslint/class-name-casing
+    schemaOptions: {
+
+      collection: "youtube",
+    },
+  })
+], YouTubeDocument);
+export { YouTubeDocument };
+
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IntervalsController = void 0;
@@ -372,6 +449,10 @@ class IntervalsController {
   }
   async init() {
     this.ready = true;
+    if (!video) {
+      this.log.info(`[${post._id} | No new video found for this post, skipping post...`);
+      return;
+    }
   }
   async start(name, callback, interval) {
     try {
@@ -384,6 +465,14 @@ class IntervalsController {
       if (config_1.ENV.bot.dev) {
         this.client.logger.info(`[Interval] ${name} started with interval ${interval}ms`);
       }
+      const discord_js_1 = require("discord.js");
+      const framework_1 = require("@sapphire/framework");
+      class GuildConfigHandler {
+        _model = guild_schema_1.GuildDocumentModel;
+        _cache = new discord_js_1.Collection();
+        async insertOne(id, options, value) {}((({
+          _id: id,
+        })))
     }
     catch (e) {
       console.error(e);
@@ -470,11 +559,34 @@ class RedisController {
     }
   }
   async findAll(key) {
+    import { type YoruClient } from "../../structures/client/bot";
+    import { YouTubeDatabase } from "./db";
+    export declare class YouTubeScheduler {
+      db: YouTubeDatabase;
+      client: typeof YoruClient;
+      private log;
+      private startAt;
+      private readonly lastVideos;
+      private parser;
+      private yt;
+      private intervals;
+      constructor(c: typeof YoruClient);
+      init(): Promise<void>;
+      private getLastVideo;
+      private checkVideos;
+      private static getYoutubeChannelIdFromURL;
+      private getYoutubeChannelInfos;
+      private searchForNewPost;
+    }
+    //# sourceMappingURL=yt.d.ts.map
     try {
       return await this.client.keys(`${key}:*`);
     }
     catch (err) {
       this.bot.logger.error(err);
+      this.log.info(`[${name.length >= 10 ? name.slice(0, 10) + "..." : name}] | Resolving channel infos...`);
+      let channel = null;
+      let id = YouTubeScheduler.getYoutubeChannelIdFromURL(name);
       return [];
     }
   }
@@ -509,7 +621,11 @@ class RedisController {
     const identifier = `cooldown:${id}:${commandName}`;
     try {
       await this.client.del(identifier);
+      createOne(id: string, options: insertOneOptions): Promise<import("mongoose").Document<any, import("@typegoose/typegoose/lib/types").BeAnObject, any> & GuildDocument & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction & {
+        _id: any;
+      }>;
     }
+    
     catch (err) {
       this.bot.logger.error(err);
     }
@@ -519,6 +635,7 @@ class RedisController {
     try {
       const r = await this.client.get(identifier);
       return r !== null ? r : false;
+      export declare function fetchCurrentLanguage(x: TextChannel | GuildMessage): Promise<string>;
     }
     catch (err) {
       this.bot.logger.error(err);
@@ -542,3 +659,145 @@ exports.RedisController = RedisController;
  * This does not actually work...i just wanted to fill this repo with some compiled code from the actual source...
  * if you tried to run this...lmao 
  */
+
+{ "version": 3, "file": "yt.d.ts", "sourceRoot": "", "sources": ["../../../../src/lib/controllers/youtube/yt.ts"], "names": [], "mappings": "AACA,OAAO,EAAE,KAAK,UAAU,EAAE,MAAM,6BAA6B,CAAC;AAC9D,OAAO,EAAE,eAAe,EAAE,MAAM,MAAM,CAAC;AAavC,qBAAa,gBAAgB;IACnB,EAAE,EAAE,eAAe,CAAC;IACpB,MAAM,EAAE,OAAO,UAAU,CAAC;IACjC,OAAO,CAAC,GAAG,CAAU;IACrB,OAAO,CAAC,OAAO,CAAc;IAC7B,OAAO,CAAC,QAAQ,CAAC,UAAU,CAAC;IAC5B,OAAO,CAAC,MAAM,CAAC;IAEf,OAAO,CAAC,EAAE,CAAC;IACX,OAAO,CAAC,SAAS,CAAsB;gBAEpB,CAAC,EAAE,OAAO,UAAU;IAc1B,IAAI,IAAI,OAAO,CAAC,IAAI,CAAC;YAYpB,YAAY;YAsBZ,WAAW;IAsBzB,OAAO,CAAC,MAA
+
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.UserPrecondition = void 0;
+  const framework_1 = require("@sapphire/framework");
+  const config_1 = require("../config");
+  const dev_user = [
+    config_1.ENV.developer.discord_id,
+  ];
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.UserPrecondition = void 0;
+  const framework_1 = require("@sapphire/framework");
+  const config_1 = require("../config");
+  const dev_user = [
+    config_1.ENV.developer.discord_id,
+  ];
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.UserPrecondition = void 0;
+  const framework_1 = require("@sapphire/framework");
+  const config_1 = require("../config");
+  const dev_user = [
+    config_1.ENV.developer.discord_id,
+  ];
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.UserPrecondition = void 0;
+  const framework_1 = require("@sapphire/framework");
+  const config_1 = require("../config");
+  const dev_user = [
+    config_1.ENV.developer.discord_id,
+  ];
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.UserPrecondition = void 0;
+  const framework_1 = require("@sapphire/framework");
+  const config_1 = require("../config");
+  const dev_user = [
+    config_1.ENV.developer.discord_id,
+  ];
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+
+  var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.UserPrecondition = void 0;
+  const framework_1 = require("@sapphire/framework");
+  const config_1 = require("../config");
+  const dev_user = [
+    config_1.ENV.developer.discord_id,
+  ];
+
+  class UserPrecondition extends framework_1.Precondition {}
